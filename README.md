@@ -131,14 +131,14 @@ dependencies {
 }
 ```
  在application中初始化就行
-```
+``` 
 BreakpadInit.initBreakpad(externalReportPath.getAbsolutePath());
 ```
 测试的代码具体可以查看github上的项目[Android_Breakpad](https://github.com/devzhan/Breakpad)。
 生成crash之后倒出对应的dump文件，采用上文 [Breakpad Github](https://github.com/google/breakpad)编译出的工具来解析该文件。
 也就是本文tools下的工具，不同平台需要自行编译。
-```
-./tools/mac/minidump_stackwalk crashDump/***.dmp >1.txt
+``` 
+./tools/mac/minidump_stackwalk crashDump/***.dmp >1.txt 
 ```
 得出日志结果过长，大体如下：
 ```
@@ -159,7 +159,7 @@ Thread 0 (crashed)
      x8 = 0x0000000000000001    x9 = 0x0000000000000000
     x10 = 0x0000000000430000   x11 = 0x0000007e4d7d97a8
     x12 = 0x0000007ed1f3f790   x13 = 0x697871c6dea5b553
-    x14 = 0x0000007ed2036000
+    x14 = 0x0000007ed2036000   
 ······
 ```
 根据文章[Android 平台 Native 代码的崩溃捕获机制及实现
@@ -175,17 +175,18 @@ Thread 0 (crashed) //crash 发生时候的线程
 ``` $NDK_HOME/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-addr2line```
 输出结果如下：
  ```
-arm-linux-androideabi-addr2line -f -C -e sample/build/intermediates/transforms/mergeJniLibs/debug/0/lib/armeabi-v7a/libcrash-lib.so 0x77e
+arm-linux-androideabi-addr2line -f -C -e sample/build/intermediates/transforms/mergeJniLibs/debug/0/lib/armeabi-v7a/libcrash-lib.so 0x77e                           
 //输出结果如下
 Crash()
 ```
 得出该崩溃为Crash方法所致，接下来就需要去修改该方法是后话了。
 以上是一次学习的总结，结合相关demo，自己动手封装出一个工作中可以用到的公共库。
 纸上得来终觉浅，绝知此事要躬行。
+欢迎关注我的[简书](https://time.geekbang.org/column/article/70602)
 参考内容：
 ·https://time.geekbang.org/column/article/70602
 ·https://github.com/AndroidAdvanceWithGeektime/Chapter01
 ·https://github.com/google/breakpad
-·https://github.com/google/breakpad
+
 
 
